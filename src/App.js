@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 class Contact extends Component {
   render() {
@@ -19,12 +20,25 @@ class Contact extends Component {
 Contact = reduxForm({ form: 'contact' })(Contact);
 
 class App extends Component {
+  constructor() {
+    super();
+    this.submit = this.submit.bind(this);
+  }
   submit(values) {
-    console.log(values);
+    this.props.submit(values);
   }
   render() {
     return <Contact onSubmit={this.submit} />;
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+    submit: values => dispatch({ type: 'SUBMIT', values }),
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);

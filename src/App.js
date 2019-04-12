@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Field, reduxForm } from 'redux-form';
 
-class App extends Component {
+class Contact extends Component {
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <form onSubmit={handleSubmit}>
+          Contact:
+          <Field type="text" component="input" name="name" />
+          <button>Submit</button>
+        </form>
       </div>
     );
+  }
+}
+
+Contact = reduxForm({ form: 'contact' })(Contact);
+
+class App extends Component {
+  submit(values) {
+    console.log(values);
+  }
+  render() {
+    return <Contact onSubmit={this.submit} />;
   }
 }
 

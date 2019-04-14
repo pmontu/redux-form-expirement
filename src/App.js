@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
+function CustomComponent(props) {
+  return <input {...props.input} />
+}
+
 class Contact extends Component {
   render() {
     const { handleSubmit } = this.props;
@@ -9,7 +13,7 @@ class Contact extends Component {
       <div>
         <form onSubmit={handleSubmit}>
           Contact:
-          <Field type="text" component="input" name="name" />
+          <Field type="textarea" component={CustomComponent} name="name" />
           <button>Submit</button>
         </form>
       </div>
